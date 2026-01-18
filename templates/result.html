@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Your Clips{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h2>Your Clips Are Ready!</h2>
+        <a href="{{ url_for('upload') }}" class="btn btn-secondary mb-4">Split Another Video</a>
+
+        <div class="clips-grid">
+            {% for file in files %}
+            <div class="clip-card">
+                <h3>Part {{ loop.index }}</h3>
+                <div class="video-wrapper">
+                    <video controls>
+                        <source src="{{ url_for('download_file', folder=folder, filename=file) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <a href="{{ url_for('download_file', folder=folder, filename=file) }}"
+                    class="btn btn-primary btn-sm btn-block">Download</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
